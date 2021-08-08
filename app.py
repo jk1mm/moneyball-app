@@ -69,7 +69,26 @@ def display():
 
     team_stats, stats_avg = mlb_scrape(player_type=player_type, year=season)
 
+    # App page title/source
+    sl.title(f"MLB Team {player_type} Analysis for {season} Season")
+    sl.markdown(
+        """**Data Source:** [Baseball-reference.com](https://www.baseball-reference.com/)"""
+    )
+
+    # Show dataframe
     sl.dataframe(team_stats)
+
+    team_select = sl.selectbox("Select Team:", [""] + list(team_stats["Tm"]))
+    # stat_select = sl.selectbox("Select Stat:", [""] + team_stats.columns)
+
+    # Proceed once team is selected
+    if not team_select:
+        sl.warning("No option is selected")
+    else:
+        None
+
+    # TODO: Rankings per team
+    # TODO: Proper design panelling
 
 
 if __name__ == "__main__":
