@@ -48,11 +48,21 @@ def mlb_scrape(player_type: str, year: Union[str, int]):
     stats_df = pd.read_html((MLB_BASE_URL + str(year) + PLAYER_TYPE_PATH[player_type]))[
         0
     ]
-    stats_avg = stats_df[stats_df["Tm"] == "League Average"].to_dict("records")
+
+    # Average statistics
+    stats_avg = stats_df[stats_df["Tm"] == "League Average"]
+
     # Delete unnecessary rows
     stats_df = stats_df[~stats_df["Tm"].isin(["Tm", "League Average"])]
     stats_df = stats_df.head(len(stats_df) - 1)  # Remove total
     stats_df = stats_df.fillna(0)
+
+    # Convert all columns except Tm as numeric
+    cols_num = stats_df.columns.drop("Tm")
+    stats_df[cols_num] = stats_df[cols_num].apply(pd.to_numeric, errors="coerce")
+    stats_avg = (
+        stats_avg[cols_num].apply(pd.to_numeric, errors="coerce").to_dict("records")
+    )
 
     return stats_df, stats_avg
 
