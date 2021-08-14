@@ -1,6 +1,7 @@
 from typing import Union
 
 import pandas as pd
+import numpy as np
 import streamlit as sl
 
 from moneyball.constants import (
@@ -94,6 +95,7 @@ def display():
     # Proceed once team is selected
     if not team_select:
         sl.warning("No option is selected")
+
     else:
         team_stats = all_team_table[all_team_table.Tm == team_select].to_dict(
             "records"
@@ -107,8 +109,11 @@ def display():
             Overall Rank: R/G
             Hitting Rank: BA
             Power Rank: HR
-            """
+            On Base Rank: OBP
+            Speed: Speed on base (SB and CS) and non-HR extra base hits
+            Efficiency: Rate of non-HR runs scored out of run scoring opportunities
 
+            """
             overall_rank = metric_rank(
                 team_stats["R/G"],
                 all_team_stats["R/G"],
@@ -120,6 +125,17 @@ def display():
             power_rank = metric_rank(
                 team_stats["HR"],
                 all_team_stats["HR"],
+            )
+            ob_rank = metric_rank(
+                team_stats["OBP"],
+                all_team_stats["OBP"],
+            )
+
+            temp_arr = np.array(all_team_stats["R"]) - np.array(all_team_stats["HR"])
+            efficiency_rank = metric_rank(
+                (team_stats["R"] - team_stats["HR"])
+                / (team_stats["R"] - team_stats["HR"] + team_stats["LOB"]),
+                temp_arr / (temp_arr + np.array(all_team_stats["LOB"])),
             )
 
         # TODO: Radar plot
