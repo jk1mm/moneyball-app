@@ -110,8 +110,8 @@ def display():
             Hitting Rank: BA
             Power Rank: HR
             On Base Rank: OBP
-            Speed: Speed on base (SB and CS) and non-HR extra base hits
-            Efficiency: Rate of non-HR runs scored out of run scoring opportunities
+            Stealing Base Rank: Speed on base (SB and CS)
+            Efficiency Rank: Rate of non-HR runs scored out of run scoring opportunities
 
             """
             overall_rank = metric_rank(
@@ -129,6 +129,11 @@ def display():
             ob_rank = metric_rank(
                 team_stats["OBP"],
                 all_team_stats["OBP"],
+            )
+
+            steal_rank = metric_rank(
+                team_stats["SB"] - team_stats["CS"],
+                np.array(all_team_stats["SB"]) - np.array(all_team_stats["CS"]),
             )
 
             temp_arr = np.array(all_team_stats["R"]) - np.array(all_team_stats["HR"])
