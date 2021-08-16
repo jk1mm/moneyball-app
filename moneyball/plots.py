@@ -1,5 +1,7 @@
-import matplotlib.pyplot as plt
+from math import pi
 from typing import List
+
+import matplotlib.pyplot as plt
 
 
 def radar_plot(metric_names: List[str], metric_ranks: List[int]):
@@ -13,3 +15,26 @@ def radar_plot(metric_names: List[str], metric_ranks: List[int]):
 
     # Add end point to metric ranks
     metric_ranks += [metric_ranks[0]]
+
+    # Add angles
+    angles = [n / float(num_metric) * 2 * pi for n in range(num_metric)]
+    angles += angles[:1]
+
+    # Plot setup
+    ax = plt.subplot(111, polar=True)
+    # Draw one axe per variable + add labels
+    plt.xticks(angles[:-1], metric_names, color="grey", size=8)
+
+    # Draw ylabels
+    ax.set_rlabel_position(0)
+    plt.yticks([10, 20, 30], ["10", "20", "30"], color="grey", size=7)
+    plt.ylim(0, 40)
+
+    # Plot data
+    ax.plot(angles, metric_ranks, linewidth=1, linestyle="solid")
+
+    # Fill area
+    ax.fill(angles, metric_ranks, "b", alpha=0.5)
+
+    # Show the graph
+    return plt
