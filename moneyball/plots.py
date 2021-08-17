@@ -2,6 +2,9 @@ from math import pi
 from typing import List
 
 import matplotlib.pyplot as plt
+import pandas as pd
+
+TEAM_COLUMN = "Tm"
 
 
 def radar_rank_plot(
@@ -40,6 +43,43 @@ def radar_rank_plot(
     reverse_ranks = [31 - rank for rank in metric_ranks]
     ax.plot(angles, reverse_ranks, color=color, linewidth=2, linestyle="solid")
     ax.fill(angles, reverse_ranks, color=color, alpha=0.45)
+
+    # Plot title
+    plt.title(title, size=9, color=color, y=1.1)
+
+
+def bar_rank_plot(
+    metric: str, team: str, data: pd.DataFrame, rank_by_top: bool, title: str, color
+):
+    """
+    Display sorted bar ranking for a given metric
+    """
+
+    if metric not in data.columns:
+        raise ValueError(f"Choose an available metric: {data.columns}")
+    if team not in list(data[TEAM_COLUMN]):
+        raise ValueError(f"Choose an available team: {list(data[TEAM_COLUMN])}")
+
+    # Extract data and sort appropriately
+    data = data[[TEAM_COLUMN, metric]].sort_values(by=[metric], ascending=rank_by_top)
+    if rank_by_top:
+        data["rank"] = range(30, 0, -1)
+    else:
+        data["rank"] = range(1, 31)
+    team_list = list(data[TEAM_COLUMN])
+
+    # Plot setup
+    plt.subplot(1, 2, 2, polar=False)
+
+    # Labels
+    plt.bar(TEAM_COLUMN, metric, data=data, color=color)
+    plt.xticks(range(len(team_list)), team_list, rotation=90, color="grey", size=6)
+    plt.yticks([], [], color="grey", size=7)
+    plt.ylabel(
+        f"Overall Metric: {metric}",
+        color="grey",
+        size=7,
+    )
 
     # Plot title
     plt.title(title, size=9, color=color, y=1.1)
