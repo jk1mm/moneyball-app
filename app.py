@@ -12,7 +12,7 @@ from moneyball.constants import (
     PLAYER_TYPE_PATH,
 )
 from moneyball.features import metric_rank
-from moneyball.plots import radar_rank_plot
+from moneyball.plots import radar_rank_plot, bar_rank_plot
 
 sl.set_page_config(
     page_title="Moneyball",
@@ -160,7 +160,7 @@ def display():
             }
 
             # Plots - setup
-            plt.figure(figsize=(10, 10), dpi=90)
+            plt.figure(figsize=(9, 3))
 
             # Radar Plot - Breakdown rankings
             radar_rank_plot(
@@ -168,6 +168,16 @@ def display():
                 metric_ranks=rankings["metric_rankings"],
                 title="Team Ranking per Offense Category",
                 color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
+            )
+
+            # Bar Plot - Overall ranking
+            bar_rank_plot(
+                metric="R/G",
+                team=team_select,
+                data=all_team_table,
+                rank_by_top=True,
+                title=f"Overall Ranking: {overall_rank}",
+                color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451, 1.0),
             )
 
             sl.pyplot()

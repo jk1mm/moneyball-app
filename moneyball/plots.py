@@ -83,3 +83,6 @@ def bar_rank_plot(
 
     # Plot title
     plt.title(title, size=9, color=color, y=1.1)
+
+    # TODO: Add highlighting of overall rank title label
+    # TODO: Add highlighting of bar
