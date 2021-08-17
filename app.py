@@ -1,5 +1,6 @@
 from typing import Union
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import streamlit as sl
@@ -11,7 +12,7 @@ from moneyball.constants import (
     PLAYER_TYPE_PATH,
 )
 from moneyball.features import metric_rank
-from moneyball.plots import radar_plot
+from moneyball.plots import radar_rank_plot
 
 sl.set_page_config(
     page_title="Moneyball",
@@ -144,31 +145,33 @@ def display():
                 "overall": overall_rank,
                 "metrics": [
                     "Batting",
-                    "Base Stealing",
                     "On Base",
-                    "Power",
+                    "Base Stealing",
                     "Efficiency",
+                    "Power",
                 ],
                 "metric_rankings": [
                     hit_rank,
-                    steal_rank,
                     ob_rank,
-                    power_rank,
+                    steal_rank,
                     efficiency_rank,
+                    power_rank,
                 ],
             }
 
-            # Display radar plot
-            sl.pyplot(
-                radar_plot(
-                    metric_names=rankings["metrics"],
-                    metric_ranks=rankings["metric_rankings"],
-                )
+            # Plots - setup
+            plt.figure(figsize=(10, 10), dpi=90)
+
+            # Radar Plot - Breakdown rankings
+            radar_rank_plot(
+                metric_names=rankings["metrics"],
+                metric_ranks=rankings["metric_rankings"],
+                title="Team Ranking per Offense Category",
+                color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
             )
 
-            # plot_palette = plt.cm.get_cmap("Set3", 4)
+            sl.pyplot()
 
-        # TODO: Radar plot
         # TODO: Add legend of what variables for each metric are used
 
 
