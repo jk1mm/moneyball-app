@@ -1,7 +1,7 @@
 from typing import Union
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 import streamlit as sl
 
 from moneyball.constants import (
@@ -11,6 +11,7 @@ from moneyball.constants import (
     PLAYER_TYPE_PATH,
 )
 from moneyball.features import metric_rank
+from moneyball.plots import radar_plot
 
 sl.set_page_config(
     page_title="Moneyball",
@@ -103,17 +104,15 @@ def display():
         all_team_stats = all_team_table.to_dict("list")
 
         if player_type == "Batting":
-            """
-            Rank Dependency
-            ---------------
-            Overall Rank: R/G
-            Hitting Rank: BA
-            Power Rank: HR
-            On Base Rank: OBP
-            Stealing Base Rank: Speed on base (SB and CS)
-            Efficiency Rank: Rate of non-HR runs scored out of run scoring opportunities
+            # Rank Dependency
+            # ---------------
+            # Overall Rank: R/G
+            # Hitting Rank: BA
+            # Power Rank: HR
+            # On Base Rank: OBP
+            # Stealing Base Rank: Speed on base (SB and CS)
+            # Efficiency Rank: Rate of non-HR runs scored out of run scoring opportunities
 
-            """
             overall_rank = metric_rank(
                 team_stats["R/G"],
                 all_team_stats["R/G"],
@@ -130,12 +129,10 @@ def display():
                 team_stats["OBP"],
                 all_team_stats["OBP"],
             )
-
             steal_rank = metric_rank(
                 team_stats["SB"] - team_stats["CS"],
                 np.array(all_team_stats["SB"]) - np.array(all_team_stats["CS"]),
             )
-
             temp_arr = np.array(all_team_stats["R"]) - np.array(all_team_stats["HR"])
             efficiency_rank = metric_rank(
                 (team_stats["R"] - team_stats["HR"])
@@ -143,9 +140,36 @@ def display():
                 temp_arr / (temp_arr + np.array(all_team_stats["LOB"])),
             )
 
+            rankings = {
+                "overall": overall_rank,
+                "metrics": [
+                    "Batting",
+                    "Base Stealing",
+                    "On Base",
+                    "Power",
+                    "Efficiency",
+                ],
+                "metric_rankings": [
+                    hit_rank,
+                    steal_rank,
+                    ob_rank,
+                    power_rank,
+                    efficiency_rank,
+                ],
+            }
+
+            # Display radar plot
+            sl.pyplot(
+                radar_plot(
+                    metric_names=rankings["metrics"],
+                    metric_ranks=rankings["metric_rankings"],
+                )
+            )
+
+            # plot_palette = plt.cm.get_cmap("Set3", 4)
+
         # TODO: Radar plot
         # TODO: Add legend of what variables for each metric are used
-        # TODO: Get css design for animated number for dashboard: components.html()
 
 
 if __name__ == "__main__":
