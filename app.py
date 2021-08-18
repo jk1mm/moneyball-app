@@ -68,6 +68,9 @@ def mlb_scrape(player_type: str, year: Union[str, int]):
         stats_avg[cols_num].apply(pd.to_numeric, errors="coerce").to_dict("records")
     )
 
+    # Keep team as index
+    stats_df = stats_df.set_index("Tm")
+
     return stats_df, stats_avg
 
 
@@ -92,14 +95,14 @@ def display():
     # Show dataframe
     sl.dataframe(all_team_table)
 
-    team_select = sl.selectbox("Select Team:", [""] + list(all_team_table["Tm"]))
+    team_select = sl.selectbox("Select Team:", [""] + list(all_team_table.index))
 
     # Proceed once team is selected
     if not team_select:
         sl.warning("No option is selected")
 
     else:
-        team_stats = all_team_table[all_team_table.Tm == team_select].to_dict(
+        team_stats = all_team_table[all_team_table.index == team_select].to_dict(
             "records"
         )[0]
         all_team_stats = all_team_table.to_dict("list")

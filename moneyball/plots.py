@@ -4,8 +4,6 @@ from typing import List
 import matplotlib.pyplot as plt
 import pandas as pd
 
-TEAM_COLUMN = "Tm"
-
 
 def radar_rank_plot(
     metric_names: List[str], metric_ranks: List[int], title: str, color
@@ -57,22 +55,23 @@ def bar_rank_plot(
 
     if metric not in data.columns:
         raise ValueError(f"Choose an available metric: {data.columns}")
-    if team not in list(data[TEAM_COLUMN]):
-        raise ValueError(f"Choose an available team: {list(data[TEAM_COLUMN])}")
+    if team not in list(data.index):
+        raise ValueError(f"Choose an available team: {list(data.index)}")
 
     # Extract data and sort appropriately
-    data = data[[TEAM_COLUMN, metric]].sort_values(by=[metric], ascending=rank_by_top)
+    data = data[[metric]].sort_values(by=[metric], ascending=rank_by_top)
     if rank_by_top:
         data["rank"] = range(30, 0, -1)
     else:
         data["rank"] = range(1, 31)
-    team_list = list(data[TEAM_COLUMN])
+    team_list = list(data.index)
 
     # Plot setup
     plt.subplot(1, 2, 2, polar=False)
 
     # Labels
-    plt.bar(TEAM_COLUMN, metric, data=data, color=color)
+    data["Tm"] = data.index
+    plt.bar("Tm", metric, data=data, color=color)
     plt.xticks(range(len(team_list)), team_list, rotation=90, color="grey", size=6)
     plt.yticks([], [], color="grey", size=7)
     plt.ylabel(
