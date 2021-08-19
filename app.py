@@ -180,7 +180,7 @@ def display():
                 data=all_team_table,
                 rank_by_top=True,
                 title=f"Overall Ranking: {overall_rank}",
-                color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451, 1.0),
+                color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
             )
 
             sl.pyplot()

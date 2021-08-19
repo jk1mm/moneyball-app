@@ -47,7 +47,12 @@ def radar_rank_plot(
 
 
 def bar_rank_plot(
-    metric: str, team: str, data: pd.DataFrame, rank_by_top: bool, title: str, color
+    metric: str,
+    team: str,
+    data: pd.DataFrame,
+    rank_by_top: bool,
+    title: str,
+    color: tuple,
 ):
     """
     Display sorted bar ranking for a given metric
@@ -69,10 +74,24 @@ def bar_rank_plot(
     # Plot setup
     plt.subplot(1, 2, 2, polar=False)
 
-    # Labels
+    # Index of team
     data["Tm"] = data.index
-    plt.bar("Tm", metric, data=data, color=color)
-    plt.xticks(range(len(team_list)), team_list, rotation=90, color="grey", size=6)
+    tm_index = list(data.Tm).index(team)
+    # Bar colors
+    bar_colors = [(*color, 0.3)] * 30
+    bar_colors[tm_index] = (*color, 1.0)
+
+    # Labels
+    plt.bar(
+        "Tm",
+        metric,
+        data=data,
+        color=bar_colors,
+    )
+    plt.xticks(range(len(team_list)), team_list, rotation=90, color="lightgrey", size=5)
+    plt.gca().get_xticklabels()[tm_index].set_color(
+        "#202020"
+    )  # Team of interest as dark grey label
     plt.yticks([], [], color="grey", size=7)
     plt.ylabel(
         f"Overall Metric: {metric}",
@@ -84,4 +103,3 @@ def bar_rank_plot(
     plt.title(title, size=9, color=color, y=1.1)
 
     # TODO: Add highlighting of overall rank title label
-    # TODO: Add highlighting of bar
