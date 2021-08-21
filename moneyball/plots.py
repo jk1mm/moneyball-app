@@ -6,7 +6,11 @@ import pandas as pd
 
 
 def radar_rank_plot(
-    metric_names: List[str], metric_ranks: List[int], title: str, color
+    metric_names: List[str],
+    metric_ranks: List[int],
+    title: str,
+    radar_details: str,
+    color,
 ):
     """
     Radar plot to show ranking statistics
@@ -44,6 +48,17 @@ def radar_rank_plot(
 
     # Plot title
     plt.title(title, size=9, color=color, y=1.1)
+
+    # Add legend for ranking logic
+    plt.text(
+        0.1455,
+        0.04,
+        radar_details,
+        fontsize=5.5,
+        transform=plt.gcf().transFigure,
+        ha="left",
+        va="top",
+    )
 
 
 def bar_rank_plot(

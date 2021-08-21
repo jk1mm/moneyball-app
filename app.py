@@ -14,6 +14,14 @@ from moneyball.constants import (
 from moneyball.features import metric_rank
 from moneyball.plots import radar_rank_plot, bar_rank_plot
 
+BATTING_DESC = """
+Batting: BA
+Power: HR
+On Base: OBP
+Base Stealing: SB, CS
+Efficiency: LOB, R
+"""
+
 sl.set_page_config(
     page_title="Moneyball",
     layout="wide",
@@ -171,6 +179,7 @@ def display():
                 metric_ranks=rankings["metric_rankings"],
                 title="Team Ranking per Offense Category",
                 color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
+                radar_details=BATTING_DESC,
             )
 
             # Bar Plot - Overall ranking
@@ -184,8 +193,6 @@ def display():
             )
 
             sl.pyplot()
-
-        # TODO: Add legend of what variables for each metric are used
 
 
 if __name__ == "__main__":
