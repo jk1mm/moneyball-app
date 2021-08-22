@@ -1,6 +1,7 @@
 # Moneyball App
 Realtime MLB Insights using Streamlit
 
+Run application locally using `streamlit run app.py`
 
 ### Common Issues
 #### SSL Certs
