@@ -5,7 +5,7 @@ from datetime import datetime
 MLB_BASE_URL = "https://www.baseball-reference.com/leagues/MLB/"
 PLAYER_TYPE_PATH = {
     "Batting": "-standard-batting.shtml",
-    "Starting Pitching": "-standard-pitching.shtml",
+    "Starting Pitching": "-starter-pitching.shtml",
     "Relief Pitching": "-reliever-pitching.shtml",
 }
 
