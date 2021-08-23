@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, List, Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,7 +31,9 @@ sl.set_page_config(
 
 # MLB data scraping team view
 @sl.cache
-def mlb_scrape(player_type: str, year: Union[str, int]):
+def mlb_scrape(
+    player_type: str, year: Union[str, int], pct_cols: Optional[List[str]] = None
+):
     """
     Data scraping MLB data.
 
@@ -47,6 +49,9 @@ def mlb_scrape(player_type: str, year: Union[str, int]):
     player_type: str
         The type of player statistics to scrape.
         Available choices: ["Batting", "Starting Pitching", "Relief Pitching"]
+
+    pct_cols: Optional[List[str]], default None
+        Columns that have '%' embedded to the numeric values.
 
     Returns
     -------
@@ -71,6 +76,9 @@ def mlb_scrape(player_type: str, year: Union[str, int]):
 
     # Convert all columns except Tm as numeric
     cols_num = stats_df.columns.drop("Tm")
+    if pct_cols:
+        for pct in pct_cols:
+            stats_df[pct] = list(map(lambda x: x[:-1], stats_df[pct].values))
     stats_df[cols_num] = stats_df[cols_num].apply(pd.to_numeric, errors="coerce")
     stats_avg = (
         stats_avg[cols_num].apply(pd.to_numeric, errors="coerce").to_dict("records")
@@ -86,13 +94,22 @@ def mlb_scrape(player_type: str, year: Union[str, int]):
 def display():
 
     # Sidebar configurations
-    sl.sidebar.write("# Selections")
+    sl.sidebar.write("# Major League Baseball")
     season = sl.sidebar.selectbox(
         "Season:", list(reversed(range(MIN_YEAR, MAX_YEAR + 1)))
     )
     player_type = sl.sidebar.selectbox("Player Type:", PLAYER_TYPE_PATH.keys())
 
-    all_team_table, stats_avg = mlb_scrape(player_type=player_type, year=season)
+    if player_type == "Starting Pitching":
+        all_team_table, stats_avg = mlb_scrape(
+            player_type=player_type, year=season, pct_cols=["QS%"]
+        )
+    elif player_type == "Relief Pitching":
+        all_team_table, stats_avg = mlb_scrape(
+            player_type=player_type, year=season, pct_cols=["SV%", "IS%"]
+        )
+    else:
+        all_team_table, stats_avg = mlb_scrape(player_type=player_type, year=season)
 
     # App page title/source
     sl.title(f"MLB Team {player_type} Analysis for {season} Season")
