@@ -10,17 +10,11 @@ from moneyball.constants import (
     MAX_YEAR,
     MLB_BASE_URL,
     PLAYER_TYPE_PATH,
+    BATTING_DESC,
+    SP_DESC,
 )
 from moneyball.features import metric_rank
 from moneyball.plots import radar_rank_plot, bar_rank_plot
-
-BATTING_DESC = """
-Batting: BA
-Power: HR
-On Base: OBP
-Base Stealing: SB, CS
-Efficiency: LOB, R
-"""
 
 sl.set_page_config(
     page_title="Moneyball",
@@ -132,6 +126,9 @@ def display():
         )[0]
         all_team_stats = all_team_table.to_dict("list")
 
+        # Setup figure
+        plt.figure(figsize=(9, 3))
+
         if player_type == "Batting":
             # Rank Dependency
             # ---------------
@@ -187,9 +184,6 @@ def display():
                 ],
             }
 
-            # Plots - setup
-            plt.figure(figsize=(9, 3))
-
             # Radar Plot - Breakdown rankings
             radar_rank_plot(
                 metric_names=rankings["metrics"],
@@ -209,23 +203,21 @@ def display():
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
             )
 
-            sl.pyplot()
-
         if player_type == "Starting Pitching":
             # Rank Dependency
             # ---------------
             # Overall Rank: GmScA
             # Quality Start Rank: QS%
-            # Winning Rank: Wgs + Wist - Lsv
+            # Winning Rank: Wgs + Wlst - Lsv
             # Efficiency Rank: IP/GS
-            # Stamina Rank: 1*(80-99) + 1.5*(100-119) + 2*(>120)
+            # Stamina Rank: 1*(80-99) + 1.5*(100-119) + 2*(≥120)
 
             overall_rank = metric_rank(team_stats["GmScA"], all_team_stats["GmScA"])
             qs_rank = metric_rank(team_stats["QS%"], all_team_stats["QS%"])
             winning_rank = metric_rank(
-                team_stats["Wgs"] + team_stats["Wist"] - team_stats["Lsv"],
+                team_stats["Wgs"] + team_stats["Wlst"] - team_stats["Lsv"],
                 np.array(all_team_stats["Wgs"])
-                + np.array(all_team_stats["Wist"])
+                + np.array(all_team_stats["Wlst"])
                 - np.array(all_team_stats["Lsv"]),
             )
             stamina_rank = metric_rank(
@@ -240,6 +232,44 @@ def display():
                 team_stats["IP/GS"],
                 all_team_stats["IP/GS"],
             )
+
+            rankings = {
+                "overall": overall_rank,
+                "metrics": [
+                    "Winning",
+                    "Efficiency",
+                    "Quality Start",
+                    "Stamina",
+                ],
+                "metric_rankings": [
+                    winning_rank,
+                    efficiency_rank,
+                    qs_rank,
+                    stamina_rank,
+                ],
+            }
+
+            # Radar Plot - Breakdown rankings
+            radar_rank_plot(
+                metric_names=rankings["metrics"],
+                metric_ranks=rankings["metric_rankings"],
+                title="Team Ranking per Stating Pitching Category",
+                color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
+                radar_details=SP_DESC,
+            )
+
+            # Bar Plot - Overall ranking
+            bar_rank_plot(
+                metric="GmScA",
+                team=team_select,
+                data=all_team_table,
+                rank_by_top=True,
+                title=f"Overall Ranking: {overall_rank}",
+                color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
+            )
+
+        # Display plots
+        sl.pyplot()
 
 
 if __name__ == "__main__":

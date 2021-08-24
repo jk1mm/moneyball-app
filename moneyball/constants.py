@@ -14,3 +14,20 @@ MIN_YEAR = 2000
 MAX_YEAR = (
     datetime.today().year if datetime.today().month >= 4 else datetime.today().year - 1
 )  # Current year only if regular season is ongoing/finished
+
+
+# Team statistics descriptions
+BATTING_DESC = """
+Batting: BA
+Power: HR
+On Base: OBP
+Base Stealing: SB, CS
+Efficiency: LOB, R
+"""
+
+SP_DESC = """
+Quality Start Rank: QS%
+Winning Rank: Wgs, Wlst, Lsv
+Efficiency Rank: IP/GS
+Stamina Rank: 80-99, 100-119, ≥120
+"""
