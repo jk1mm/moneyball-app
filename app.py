@@ -211,6 +211,36 @@ def display():
 
             sl.pyplot()
 
+        if player_type == "Starting Pitching":
+            # Rank Dependency
+            # ---------------
+            # Overall Rank: GmScA
+            # Quality Start Rank: QS%
+            # Winning Rank: Wgs + Wist - Lsv
+            # Efficiency Rank: IP/GS
+            # Stamina Rank: 1*(80-99) + 1.5*(100-119) + 2*(>120)
+
+            overall_rank = metric_rank(team_stats["GmScA"], all_team_stats["GmScA"])
+            qs_rank = metric_rank(team_stats["QS%"], all_team_stats["QS%"])
+            winning_rank = metric_rank(
+                team_stats["Wgs"] + team_stats["Wist"] - team_stats["Lsv"],
+                np.array(all_team_stats["Wgs"])
+                + np.array(all_team_stats["Wist"])
+                - np.array(all_team_stats["Lsv"]),
+            )
+            stamina_rank = metric_rank(
+                team_stats["80-99"]
+                + 1.5 * team_stats["100-119"]
+                + 2 * team_stats["≥120"],
+                np.array(all_team_stats["80-99"])
+                + 1.5 * np.array(all_team_stats["100-119"])
+                + 2 * np.array(all_team_stats["≥120"]),
+            )
+            efficiency_rank = metric_rank(
+                team_stats["IP/GS"],
+                all_team_stats["IP/GS"],
+            )
+
 
 if __name__ == "__main__":
     display()
