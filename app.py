@@ -268,6 +268,18 @@ def display():
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
             )
 
+        if player_type == "Relief Pitching":
+            # Rank Dependency
+            # ---------------
+            # Overall Rank: IS%
+            # Saves: SV
+            # Holds: Hold
+            # Save pct: SV%
+            # Win pct: Wgr, Lgr
+            # Leverage pressure: aLI
+
+            None
+
         # Display plots
         sl.pyplot()
 
