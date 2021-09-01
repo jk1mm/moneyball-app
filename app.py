@@ -12,6 +12,7 @@ from moneyball.constants import (
     PLAYER_TYPE_PATH,
     BATTING_DESC,
     SP_DESC,
+    RP_DESC,
 )
 from moneyball.features import metric_rank
 from moneyball.plots import radar_rank_plot, bar_rank_plot
@@ -278,7 +279,55 @@ def display():
             # Win pct: Wgr, Lgr
             # Leverage pressure: aLI
 
-            None
+            overall_rank = metric_rank(
+                team_stats["IS%"], all_team_stats["IS%"], max_as_top=False
+            )
+            save_count_rank = metric_rank(team_stats["SV"], all_team_stats["SV"])
+            hold_count_rank = metric_rank(team_stats["Hold"], all_team_stats["Hold"])
+            save_pct_rank = metric_rank(team_stats["SV%"], all_team_stats["SV%"])
+            win_pct_rank = metric_rank(
+                team_stats["Wgr"] / (team_stats["Wgr"] + team_stats["Lgr"]),
+                np.array(all_team_stats["Wgr"])
+                / (np.array(all_team_stats["Wgr"]) + np.array(all_team_stats["Lgr"])),
+            )
+            lvg_pressure_rank = metric_rank(team_stats["aLI"], all_team_stats["aLI"])
+
+            rankings = {
+                "overall": overall_rank,
+                "metrics": [
+                    "Saves",
+                    "Holds",
+                    "Clean Closes",
+                    "Game Pressure",
+                    "Win %",
+                ],
+                "metric_rankings": [
+                    save_count_rank,
+                    hold_count_rank,
+                    save_pct_rank,
+                    lvg_pressure_rank,
+                    win_pct_rank,
+                ],
+            }
+
+            # Radar Plot - Breakdown rankings
+            radar_rank_plot(
+                metric_names=rankings["metrics"],
+                metric_ranks=rankings["metric_rankings"],
+                title="Team Ranking per Relief Pitching Category",
+                color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
+                radar_details=RP_DESC,
+            )
+
+            # Bar Plot - Overall ranking
+            bar_rank_plot(
+                metric="IS%",
+                team=team_select,
+                data=all_team_table,
+                rank_by_top=False,
+                title=f"Overall Ranking: {overall_rank}",
+                color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
+            )
 
         # Display plots
         sl.pyplot()
