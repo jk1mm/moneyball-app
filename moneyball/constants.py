@@ -31,3 +31,11 @@ Winning Rank: Wgs, Wlst, Lsv
 Efficiency Rank: IP/GS
 Stamina Rank: 80-99, 100-119, ≥120
 """
+
+RP_DESC = """
+Save Rank: SV
+Holds Rank: Hold
+Clean Closes Rank: SV%
+Game Pressure Rank: aLI
+Win Pct Rank: Wgr, Lgr
+"""
