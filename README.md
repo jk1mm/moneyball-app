@@ -1,7 +1,17 @@
-# Moneyball App
-Realtime MLB Insights using Streamlit
+<h1 align="center">
+    M⚾NEYBALL
+</h1>
 
-Run application locally using `streamlit run app.py`
+<p align="center">
+    <strong> ~ Web analytics application that provides the 👌insights for your MLB team ~</strong>
+</p>
+
+<p align="center">
+    <a href=""><img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg"></a>
+    <a href="https://github.com/python"><img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg" alt=":Language: Python"></a>
+    <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
+</p>
+
 
 ### Common Issues
 #### SSL Certs
