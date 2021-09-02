@@ -16,6 +16,16 @@
 <img src="docs/img/demo.gif" width=600>
 </p>
 
+⭐ All-in-one platform for extracting Major League Baseball's team insights. Moneyball provides quick access to 
+[baseball-reference](https://www.baseball-reference.com/leagues/majors/) data and provides intuitive team rankings based 
+on the following categories:
+ - Batting
+ - Starting Pitching
+ - Relief Pitching
+
+<br>
+
+---
 
 ### Common Issues
 #### SSL Certs
