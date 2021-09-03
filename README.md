@@ -37,6 +37,8 @@ on the following categories:
 2. Choose a team in the `Select Team` dropdown to view the overall and category-based rankings. Details of the category
    scoring is explained in [Categorization Logic](https://github.com/jk1mm/moneyball-app#categorization-logic).
 
+<br>
+
 ## Categorization Logic
 Currently, there are 3 `Metric` available. Here is a breakdown of the category-based rankings available for each:
 
@@ -68,10 +70,11 @@ Currently, there are 3 `Metric` available. Here is a breakdown of the category-b
 | **Clean Closes** | Save rate | `SV%`
 | **Win %** | Ability to win as a result of relief** | `Wgr` `Lgr`
 | **Game Pressure** | Pressure faced by pitchers | `aLI`
-| ***OVERALL*** | Ability to strand runners on base | `IS%`
+| ***OVERALL*** | Ability to strand runners on base** | `IS%`
 
 - Metrics in ** needs to be re-evaluated for more proper evaluation.
 
+<br>
 
 ## Setup
 
