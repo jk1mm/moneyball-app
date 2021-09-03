@@ -16,6 +16,8 @@
 <img src="docs/img/demo.gif" width=600>
 </p>
 
+<br>
+
 ⭐ All-in-one platform for extracting Major League Baseball's team insights. Moneyball provides quick access to 
 [baseball-reference](https://www.baseball-reference.com/leagues/majors/) data and provides intuitive team rankings based 
 on the following categories:
@@ -26,6 +28,15 @@ on the following categories:
 <br>
 
 ---
+
+## Usage
+
+### Navigating the Tool:
+1. Select a `Season` and `Metric` of interest. This will initially generate some 
+   [data](https://www.baseball-reference.com/leagues/majors/) of team statistics relevant to the selected values.
+2. Choose a team in the `Select Team` dropdown to view the overall and category-based rankings. Details of the category
+   scoring is explained in [Categorization Logic](https://github.com/jk1mm/moneyball-app#categorization-logic).
+
 
 ### Common Issues
 #### SSL Certs

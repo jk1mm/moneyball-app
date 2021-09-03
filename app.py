@@ -168,7 +168,7 @@ def display():
             rankings = {
                 "overall": overall_rank,
                 "metrics": [
-                    "Batting",
+                    "Hitting",
                     "On Base",
                     "Base Stealing",
                     "Efficiency",
@@ -336,3 +336,4 @@ if __name__ == "__main__":
 
 # TODO: Change app theme color
 # TODO: Change plot theme
+# TODO: Add new metric: Fielding
