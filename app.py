@@ -9,7 +9,7 @@ from moneyball.constants import (
     MIN_YEAR,
     MAX_YEAR,
     MLB_BASE_URL,
-    PLAYER_TYPE_PATH,
+    METRIC_PATH,
     BATTING_DESC,
     SP_DESC,
     RP_DESC,
@@ -27,7 +27,7 @@ sl.set_page_config(
 # MLB data scraping team view
 @sl.cache
 def mlb_scrape(
-    player_type: str, year: Union[str, int], pct_cols: Optional[List[str]] = None
+    metric_type: str, year: Union[str, int], pct_cols: Optional[List[str]] = None
 ):
     """
     Data scraping MLB data.
@@ -41,8 +41,8 @@ def mlb_scrape(
     year: Union[str, int]
         The year of the season to scrape.
 
-    player_type: str
-        The type of player statistics to scrape.
+    metric_type: str
+        The type of metric statistics to scrape.
         Available choices: ["Batting", "Starting Pitching", "Relief Pitching"]
 
     pct_cols: Optional[List[str]], default None
@@ -51,15 +51,13 @@ def mlb_scrape(
     Returns
     -------
     stats_df, stats_avg: pd.DataFrame, dict
-        Team statistics for specified player type, and average stats.
+        Team statistics for specified metric type, and average stats.
     """
-    # Check player type validity
-    if player_type not in PLAYER_TYPE_PATH:
-        raise ValueError(f"Please choose from {list(PLAYER_TYPE_PATH.keys())}")
+    # Check metric type validity
+    if metric_type not in METRIC_PATH:
+        raise ValueError(f"Please choose from {list(METRIC_PATH.keys())}")
 
-    stats_df = pd.read_html((MLB_BASE_URL + str(year) + PLAYER_TYPE_PATH[player_type]))[
-        0
-    ]
+    stats_df = pd.read_html((MLB_BASE_URL + str(year) + METRIC_PATH[metric_type]))[0]
 
     # Average statistics
     stats_avg = stats_df[stats_df["Tm"] == "League Average"]
@@ -93,21 +91,21 @@ def display():
     season = sl.sidebar.selectbox(
         "Season:", list(reversed(range(MIN_YEAR, MAX_YEAR + 1)))
     )
-    player_type = sl.sidebar.selectbox("Player Type:", PLAYER_TYPE_PATH.keys())
+    metric_type = sl.sidebar.selectbox("Metric:", METRIC_PATH.keys())
 
-    if player_type == "Starting Pitching":
+    if metric_type == "Starting Pitching":
         all_team_table, stats_avg = mlb_scrape(
-            player_type=player_type, year=season, pct_cols=["QS%"]
+            metric_type=metric_type, year=season, pct_cols=["QS%"]
         )
-    elif player_type == "Relief Pitching":
+    elif metric_type == "Relief Pitching":
         all_team_table, stats_avg = mlb_scrape(
-            player_type=player_type, year=season, pct_cols=["SV%", "IS%"]
+            metric_type=metric_type, year=season, pct_cols=["SV%", "IS%"]
         )
     else:
-        all_team_table, stats_avg = mlb_scrape(player_type=player_type, year=season)
+        all_team_table, stats_avg = mlb_scrape(metric_type=metric_type, year=season)
 
     # App page title/source
-    sl.title(f"MLB Team {player_type} Analysis for {season} Season")
+    sl.title(f"MLB Team {metric_type} Analysis for {season} Season")
     sl.markdown(
         """**Data Source:** [Baseball-reference.com](https://www.baseball-reference.com/)"""
     )
@@ -130,7 +128,7 @@ def display():
         # Setup figure
         plt.figure(figsize=(9, 3))
 
-        if player_type == "Batting":
+        if metric_type == "Batting":
             # Rank Dependency
             # ---------------
             # Overall Rank: R/G
@@ -204,7 +202,7 @@ def display():
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
             )
 
-        if player_type == "Starting Pitching":
+        if metric_type == "Starting Pitching":
             # Rank Dependency
             # ---------------
             # Overall Rank: GmScA
@@ -269,7 +267,7 @@ def display():
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
             )
 
-        if player_type == "Relief Pitching":
+        if metric_type == "Relief Pitching":
             # Rank Dependency
             # ---------------
             # Overall Rank: IS%
@@ -335,3 +333,6 @@ def display():
 
 if __name__ == "__main__":
     display()
+
+# TODO: Change app theme color
+# TODO: Change plot theme

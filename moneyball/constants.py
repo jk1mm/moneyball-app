@@ -3,7 +3,7 @@ from datetime import datetime
 
 # Webscrape URL's
 MLB_BASE_URL = "https://www.baseball-reference.com/leagues/majors/"
-PLAYER_TYPE_PATH = {
+METRIC_PATH = {
     "Batting": "-standard-batting.shtml",
     "Starting Pitching": "-starter-pitching.shtml",
     "Relief Pitching": "-reliever-pitching.shtml",
