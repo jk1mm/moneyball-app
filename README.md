@@ -21,9 +21,9 @@
 ⭐ All-in-one platform for extracting Major League Baseball's team insights. Moneyball provides quick access to 
 [baseball-reference](https://www.baseball-reference.com/leagues/majors/) data and provides intuitive team rankings based 
 on the following categories:
- - Batting
- - Starting Pitching
- - Relief Pitching
+ - [Batting]((https://github.com/jk1mm/moneyball-app#`1-batting`))
+ - [Starting Pitching]((https://github.com/jk1mm/moneyball-app#2-starting-pitching))
+ - [Relief Pitching]((https://github.com/jk1mm/moneyball-app#3-relief-pitching))
 
 <br>
 

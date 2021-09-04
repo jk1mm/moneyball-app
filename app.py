@@ -334,6 +334,5 @@ def display():
 if __name__ == "__main__":
     display()
 
-# TODO: Change app theme color
 # TODO: Change plot theme
 # TODO: Add new metric: Fielding
