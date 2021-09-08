@@ -7,6 +7,7 @@ METRIC_PATH = {
     "Batting": "-standard-batting.shtml",
     "Starting Pitching": "-starter-pitching.shtml",
     "Relief Pitching": "-reliever-pitching.shtml",
+    "Fielding": "-standard-fielding.shtml",
 }
 
 # MLB available seasons for data scraping
@@ -38,4 +39,12 @@ Holds Rank: Hold
 Clean Closes Rank: SV%
 Game Pressure Rank: aLI
 Win Pct Rank: Wgr, Lgr
+"""
+
+DEF_DESC = """
+Defensive Efficiency Rank: DefEff (Balls in play converted into outs)
+Fielding Pct Rank: Fld%
+Double Plays Rank: DP
+Defensive Runs Saved Rank: Rdrs/yr (Number of runs a player saved or cost relative to an average player)
+Good Plays Rank: Rgood (Based on exceptional plays vs obvious errors committed)
 """
