@@ -43,8 +43,8 @@ Win Pct Rank: Wgr, Lgr
 
 DEF_DESC = """
 Defensive Efficiency Rank: DefEff (Balls in play converted into outs)
-Fielding Pct Rank: Fld%
-Double Plays Rank: DP
-Defensive Runs Saved Rank: Rdrs/yr (Number of runs a player saved or cost relative to an average player)
+DRS Rank: Rdrs/yr (Relative number of defensive runs saved or cost)
+Fld% Rank: Fld% (Standard fielding percentage)
 Good Plays Rank: Rgood (Based on exceptional plays vs obvious errors committed)
+DP Rank: DP (Number of double plays completed)
 """

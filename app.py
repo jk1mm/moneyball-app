@@ -341,8 +341,46 @@ def display():
             overall_rank = metric_rank(team_stats["Rtot/yr"], all_team_stats["Rtot/yr"])
             def_eff_rank = metric_rank(team_stats["DefEff"], all_team_stats["DefEff"])
             fielding_rank = metric_rank(team_stats["Fld%"], all_team_stats["Fld%"])
+            dp_rank = metric_rank(team_stats["DP"], all_team_stats["DP"])
             drs_rank = metric_rank(team_stats["Rdrs/yr"], all_team_stats["Rdrs/yr"])
             good_plays_rank = metric_rank(team_stats["Rgood"], all_team_stats["Rgood"])
+
+            rankings = {
+                "overall": overall_rank,
+                "metrics": [
+                    "Defensive Efficiency",
+                    "DRS",
+                    "Fld%",
+                    "Good Plays",
+                    "DP",
+                ],
+                "metric_rankings": [
+                    def_eff_rank,
+                    drs_rank,
+                    fielding_rank,
+                    good_plays_rank,
+                    dp_rank,
+                ],
+            }
+
+            # Radar Plot - Breakdown rankings
+            radar_rank_plot(
+                metric_names=rankings["metrics"],
+                metric_ranks=rankings["metric_rankings"],
+                title="Team Ranking per Fielding Category",
+                color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
+                radar_details=DEF_DESC,
+            )
+
+            # Bar Plot - Overall ranking
+            bar_rank_plot(
+                metric="Rtot/yr",
+                team=team_select,
+                data=all_team_table,
+                rank_by_top=True,
+                title=f"Overall Ranking: {overall_rank}",
+                color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
+            )
 
         # Display plots
         sl.pyplot()
@@ -352,4 +390,3 @@ if __name__ == "__main__":
     display()
 
 # TODO: Change plot theme
-# TODO: Add new metric: Fielding
