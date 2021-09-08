@@ -13,6 +13,7 @@ from moneyball.constants import (
     BATTING_DESC,
     SP_DESC,
     RP_DESC,
+    DEF_DESC,
 )
 from moneyball.features import metric_rank
 from moneyball.plots import radar_rank_plot, bar_rank_plot
@@ -326,6 +327,22 @@ def display():
                 title=f"Overall Ranking: {overall_rank}",
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
             )
+
+        if metric_type == "Fielding":
+            # Rank Dependency
+            # ---------------
+            # Overall Rank: Rtot/yr
+            # Defensive Efficiency Rank: DefEff
+            # Fielding Pct Rank: Fld%
+            # Double Plays Rank: DP
+            # Defensive Runs Saved Rank: Rdrs/yr
+            # Good Plays Rank: Rgood
+
+            overall_rank = metric_rank(team_stats["Rtot/yr"], all_team_stats["Rtot/yr"])
+            def_eff_rank = metric_rank(team_stats["DefEff"], all_team_stats["DefEff"])
+            fielding_rank = metric_rank(team_stats["Fld%"], all_team_stats["Fld%"])
+            drs_rank = metric_rank(team_stats["Rdrs/yr"], all_team_stats["Rdrs/yr"])
+            good_plays_rank = metric_rank(team_stats["Rgood"], all_team_stats["Rgood"])
 
         # Display plots
         sl.pyplot()
