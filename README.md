@@ -24,6 +24,7 @@ on the following categories:
  - [Batting](https://github.com/jk1mm/moneyball-app#1-batting)
  - [Starting Pitching](https://github.com/jk1mm/moneyball-app#2-starting-pitching)
  - [Relief Pitching](https://github.com/jk1mm/moneyball-app#3-relief-pitching)
+ - [Fielding](https://github.com/jk1mm/moneyball-app#4-fielding)
 
 <br>
 
@@ -68,15 +69,21 @@ Currently, there are 3 `Metric` available. Here is a breakdown of the category-b
 | **Saves** | Number of saves | `SV`
 | **Holds** | Number of holds | `Hold`
 | **Clean Closes** | Save rate | `SV%`
-| **Win %** | Ability to win as a result of relief** | `Wgr` `Lgr`
+| **Win %**** | Ability to win as a result of relief | `Wgr` `Lgr`
 | **Game Pressure** | Pressure faced by pitchers | `aLI`
-| ***OVERALL*** | Ability to strand runners on base** | `IS%`
-
-- Metrics in ** needs to be re-evaluated for more proper evaluation.
+| ***OVERALL***** | Ability to strand runners on base | `IS%`
 
 ### 4. Fielding 
-  Upcoming...
+| Category | Description | Variables Involved
+| --- | --- | --- |
+| **Defensive Efficiency** | Balls in play converted into outs | `DefEff`
+| **DRS** | Relative number of defensive runs saved or cost | `Rdrs/yr`
+| **Fld%** | Standard fielding percentage | `Fld%`
+| **Good Plays** | Good Plays/Misplays runs above average | `Rgood`
+| **DP** | Number of double plays completed | `DP`
+| ***OVERALL***** | [Total Zone Runs](https://www.baseball-reference.com/about/total_zone.shtml): Considering outfield arms, infield double play induces, catcher efficiency | `Rtot/yr`
 
+- Metrics in ** needs to be re-evaluated for more proper evaluation.
 
 <br>
 
