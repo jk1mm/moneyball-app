@@ -41,7 +41,7 @@ on the following categories:
 <br>
 
 ## Categorization Logic
-Currently, there are 3 `Metric` available. Here is a breakdown of the category-based rankings available for each:
+Currently, there are 4 `Metric` available. Here is a breakdown of the category-based rankings available for each:
 
 ### 1. Batting
 | Category | Description | Variables Involved
