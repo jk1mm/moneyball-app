@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
- <a href=""><img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg"></a>
+ <a href="https://share.streamlit.io/jk1mm/moneyball-app/main/app.py"><img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg"></a>
  <a href="https://github.com/python"><img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg" alt=":Language: Python"></a>
  <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
 </p>
