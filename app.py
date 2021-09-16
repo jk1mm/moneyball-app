@@ -253,7 +253,7 @@ def display():
             radar_rank_plot(
                 metric_names=rankings["metrics"],
                 metric_ranks=rankings["metric_rankings"],
-                title="Team Ranking per Stating Pitching Category",
+                title="Team Ranking per Starting Pitching Category",
                 color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
                 radar_details=SP_DESC,
             )
