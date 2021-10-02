@@ -88,7 +88,13 @@ def mlb_scrape(
 def display():
 
     # Sidebar configurations
-    sl.sidebar.write("# Major League Baseball")
+    sl.sidebar.write(
+        "<center><h1>Major League Baseball</h1></center>", unsafe_allow_html=True
+    )
+    sl.sidebar.markdown(
+        "<center><small>Pick a Season & Metric</small></center>", unsafe_allow_html=True
+    )
+
     season = sl.sidebar.selectbox(
         "Season:", list(reversed(range(MIN_YEAR, MAX_YEAR + 1)))
     )
@@ -106,7 +112,7 @@ def display():
         all_team_table, stats_avg = mlb_scrape(metric_type=metric_type, year=season)
 
     # App page title/source
-    sl.title(f"MLB Team {metric_type} Analysis for {season} Season")
+    sl.title(f"MLB Team {metric_type} Analytics for {season} Season")
     sl.markdown(
         """**Data Source:** [Baseball-reference.com](https://www.baseball-reference.com/)"""
     )
