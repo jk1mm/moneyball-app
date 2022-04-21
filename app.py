@@ -1,9 +1,10 @@
 from typing import Union, List, Optional
 
-import matplotlib.pyplot as plt
+
 import numpy as np
 import pandas as pd
 import streamlit as sl
+
 
 from moneyball.constants import (
     MIN_YEAR,
@@ -127,7 +128,7 @@ def display():
         all_team_stats = all_team_table.to_dict("list")
 
         # Setup figure
-        plt.figure(figsize=(9, 3))
+        
 
         if metric_type == "Batting":
             # Rank Dependency
