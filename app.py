@@ -382,7 +382,7 @@ def display():
                 title=f"Overall Ranking: {overall_rank}",
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
             )
-
+                 #hi
         # Display plots
         sl.pyplot()
 
