@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
- <strong> ~ Web analytics application that provides the 👌 insights for your MLB team ~</strong>
+ <strong> ~ Web analytics application that provides useful insights for your MLB team ~</strong>
 </p>
 
 <p align="center">
