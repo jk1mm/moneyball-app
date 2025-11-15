@@ -1,0 +1,29 @@
+[project]
+name = "moneyball-app"
+version = "2.0.0"
+description = ""
+authors = [{ name = "Josh Kim" }]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "streamlit",
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "lxml",
+]
+
+[project.optional-dependencies]
+dev = ["pre-commit", "ruff"]
+test = ["pytest", "pytest-cov"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

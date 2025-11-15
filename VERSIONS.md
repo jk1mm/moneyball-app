@@ -8,3 +8,7 @@
     - Bar plot
 - Team level statistic views
 - Use Streamlit service for dashboarding interface
+
+### V2.0.0
+- Update package versions/dependencies
+- Replace pip with uv for package management
