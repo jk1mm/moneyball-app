@@ -86,7 +86,6 @@ def mlb_scrape(
 
 # All application views
 def display():
-
     # Sidebar configurations
     sl.sidebar.write("# Major League Baseball")
     season = sl.sidebar.selectbox(
