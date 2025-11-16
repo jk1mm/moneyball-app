@@ -88,7 +88,40 @@ Currently, there are 4 `Metric` available. Here is a breakdown of the category-b
 <br>
 
 ## Setup
+  
+### Install dependencies with `uv`
+
+1. Ensure Python 3.13+ is installed (project targets `>=3.13`).
+2. Install `uv` (macOS):
+
+```bash
+# via Homebrew
+brew install uv
+```
+
+3. Create and activate a virtual environment:
+
+```bash
+uv venv .venv --python 3.13
+source .venv/bin/activate
+```
+
+4. Install project dependencies from `pyproject.toml`:
+
+```bash
+# base deps
+uv sync
+```
+
+### Run Streamlit locally
+
+From the project root:
+
+```bash
+streamlit run app.py
+```
 
 ### Common Issues
 #### SSL Certs
+
 On Mac, go to `Applications/python3._` and double click `Install Certificates`
