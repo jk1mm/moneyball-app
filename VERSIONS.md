@@ -12,3 +12,4 @@
 ### V2.0.0
 - Update package versions/dependencies
 - Replace pip with uv for package management
+- Update deprecated Streamlit logic and plots

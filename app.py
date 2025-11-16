@@ -26,7 +26,7 @@ sl.set_page_config(
 
 
 # MLB data scraping team view
-@sl.cache
+@sl.cache_data
 def mlb_scrape(
     metric_type: str, year: Union[str, int], pct_cols: Optional[List[str]] = None
 ):
@@ -125,8 +125,10 @@ def display():
         )[0]
         all_team_stats = all_team_table.to_dict("list")
 
-        # Setup figure
-        plt.figure(figsize=(9, 3))
+        # Radar and Bar plot setup
+        fig = plt.figure(figsize=(9, 3))
+        radar_ax = fig.add_subplot(1, 2, 1, projection="polar")
+        bar_ax = fig.add_subplot(1, 2, 2)
 
         if metric_type == "Batting":
             # Rank Dependency
@@ -190,6 +192,7 @@ def display():
                 title="Team Ranking per Offense Category",
                 color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
                 radar_details=BATTING_DESC,
+                ax=radar_ax,
             )
 
             # Bar Plot - Overall ranking
@@ -200,6 +203,7 @@ def display():
                 rank_by_top=True,
                 title=f"Overall Ranking: {overall_rank}",
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
+                ax=bar_ax,
             )
 
         if metric_type == "Starting Pitching":
@@ -255,6 +259,7 @@ def display():
                 title="Team Ranking per Starting Pitching Category",
                 color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
                 radar_details=SP_DESC,
+                ax=radar_ax,
             )
 
             # Bar Plot - Overall ranking
@@ -265,6 +270,7 @@ def display():
                 rank_by_top=True,
                 title=f"Overall Ranking: {overall_rank}",
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
+                ax=bar_ax,
             )
 
         if metric_type == "Relief Pitching":
@@ -315,6 +321,7 @@ def display():
                 title="Team Ranking per Relief Pitching Category",
                 color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
                 radar_details=RP_DESC,
+                ax=radar_ax,
             )
 
             # Bar Plot - Overall ranking
@@ -325,6 +332,7 @@ def display():
                 rank_by_top=False,
                 title=f"Overall Ranking: {overall_rank}",
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
+                ax=bar_ax,
             )
 
         if metric_type == "Fielding":
@@ -369,6 +377,7 @@ def display():
                 title="Team Ranking per Fielding Category",
                 color=(0.5019607843137255, 0.6941176470588235, 0.8274509803921568, 1.0),
                 radar_details=DEF_DESC,
+                ax=radar_ax,
             )
 
             # Bar Plot - Overall ranking
@@ -379,10 +388,11 @@ def display():
                 rank_by_top=True,
                 title=f"Overall Ranking: {overall_rank}",
                 color=(0.5529411764705883, 0.8274509803921568, 0.7803921568627451),
+                ax=bar_ax,
             )
 
         # Display plots
-        sl.pyplot()
+        sl.pyplot(fig, use_container_width=True, clear_figure=True)
 
 
 if __name__ == "__main__":

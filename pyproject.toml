@@ -12,6 +12,7 @@ dependencies = [
     "numpy",
     "matplotlib",
     "lxml",
+    "certifi>=2025.11.12",
 ]
 
 [project.optional-dependencies]
